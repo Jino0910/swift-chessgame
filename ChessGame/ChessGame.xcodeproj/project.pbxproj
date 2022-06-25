@@ -19,7 +19,8 @@
 		5F053B5E28607B3B00915F71 /* ChessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F053B5928607B3B00915F71 /* ChessManager.swift */; };
 		5F053B5F28607B3B00915F71 /* Chessmen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F053B5B28607B3B00915F71 /* Chessmen.swift */; };
 		5F053B6028607B3B00915F71 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F053B5C28607B3B00915F71 /* ChessBoard.swift */; };
-		5F053B6128607B3B00915F71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F053B5D28607B3B00915F71 /* User.swift */; };
+		5FC7ABFC2866C4A9003009B8 /* ChessBoardPositionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7ABFB2866C4A9003009B8 /* ChessBoardPositionKeys.swift */; };
+		5FC7AC012866C727003009B8 /* ChessmenKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7AC002866C727003009B8 /* ChessmenKind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +57,8 @@
 		5F053B5928607B3B00915F71 /* ChessManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessManager.swift; sourceTree = "<group>"; };
 		5F053B5B28607B3B00915F71 /* Chessmen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chessmen.swift; sourceTree = "<group>"; };
 		5F053B5C28607B3B00915F71 /* ChessBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
-		5F053B5D28607B3B00915F71 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5FC7ABFB2866C4A9003009B8 /* ChessBoardPositionKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardPositionKeys.swift; sourceTree = "<group>"; };
+		5FC7AC002866C727003009B8 /* ChessmenKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessmenKind.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				5F053B5C28607B3B00915F71 /* ChessBoard.swift */,
-				5F053B5D28607B3B00915F71 /* User.swift */,
 				5F053B5B28607B3B00915F71 /* Chessmen.swift */,
+				5FC7AC002866C727003009B8 /* ChessmenKind.swift */,
+				5FC7ABFB2866C4A9003009B8 /* ChessBoardPositionKeys.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -289,10 +292,11 @@
 				5F053B2D28607B2500915F71 /* ViewController.swift in Sources */,
 				5F053B6028607B3B00915F71 /* ChessBoard.swift in Sources */,
 				5F053B5F28607B3B00915F71 /* Chessmen.swift in Sources */,
+				5FC7AC012866C727003009B8 /* ChessmenKind.swift in Sources */,
 				5F053B2928607B2500915F71 /* AppDelegate.swift in Sources */,
 				5F053B5E28607B3B00915F71 /* ChessManager.swift in Sources */,
 				5F053B2B28607B2500915F71 /* SceneDelegate.swift in Sources */,
-				5F053B6128607B3B00915F71 /* User.swift in Sources */,
+				5FC7ABFC2866C4A9003009B8 /* ChessBoardPositionKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
