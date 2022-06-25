@@ -92,7 +92,7 @@ class ChessGameTests: XCTestCase {
         chessBoard.initializeBoard()
 
         // then
-        let diplayPosition = chessBoard.diplayPositionOnConsole()
+        let diplayPosition = chessBoard.positions.diplayPositionOnConsole
 
         XCTAssertEqual(diplayPosition, expectDiplay)
     }
