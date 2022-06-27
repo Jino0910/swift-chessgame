@@ -11,7 +11,17 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+    
+        
+//        let chessBoard = ChessBoard()
+//        chessBoard.initializeBoard()
+        
+        let expectPawnPositionKeys: [[ChessBoardPositionKeys]] = [[.a6]]
+        
+        let moveablePositionKeys = Chessmen(kind: .pawn,
+                                      color: .white).moveablePosition(.a7)
+
     }
 
 

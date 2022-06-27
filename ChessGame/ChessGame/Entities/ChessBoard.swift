@@ -10,6 +10,8 @@ import Foundation
 typealias ChessColor = ChessBoard.Color
 class ChessBoard {
     
+    static let maxLength = 8
+    
     enum Color: CaseIterable {
         case white
         case black
@@ -32,7 +34,8 @@ extension ChessBoard {
         return ChessmenKind.allCases.map { kind in
             ChessColor.allCases.map { color in
                 kind.ranks.map { rank in
-                    [ChessBoardPositionKeys(rawValue: "\(rank.lowercased())\(kind.files(color))") ?? .a1:
+                    [ChessBoardPositionKeys.makeKeys(rank: rank,
+                                                     file: kind.files(color)) ?? .a1:
                         Chessmen(kind: kind, color: color)]
                 }.flatMap{ $0 }
             }.flatMap{ $0 }

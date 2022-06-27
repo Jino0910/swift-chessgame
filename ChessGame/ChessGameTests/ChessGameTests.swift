@@ -48,10 +48,10 @@ class ChessGameTests: XCTestCase {
     func testQueenPosion() throws {
         
         // given
-        let position = "E8"
+        let position = 58
         
         // then
-        let whiteQueenPosion = ChessBoardPositionKeys.e8.rawValue.uppercased()
+        let whiteQueenPosion = ChessBoardPositionKeys.e8.rawValue
         
         XCTAssertEqual(whiteQueenPosion, position)
     }
@@ -96,6 +96,33 @@ class ChessGameTests: XCTestCase {
 
         XCTAssertEqual(diplayPosition, expectDiplay)
     }
+    
+    func testPawnMoveablePosition() throws {
+
+        // given
+        let expectPawnPositionKeys: [[ChessBoardPositionKeys]] = [[.a6]]
+
+        // then
+        let moveablePositionKeys = Chessmen(kind: .pawn,
+                                      color: .white).moveablePosition(.a7)
+
+        XCTAssertEqual(expectPawnPositionKeys, moveablePositionKeys)
+    }
+    
+    func testBishopMoveablePosition() throws {
+
+        // given
+        let expectBishopPositionKeys: [[ChessBoardPositionKeys]] = [[.b7, .a6],
+                                                                    [.d7, .e6, .f5, .g4, .h3]]
+
+        // then
+        let moveablePositionKeys = Chessmen(kind: .bishop,
+                                            color: .white).moveablePosition(.c8)
+
+        XCTAssertEqual(expectBishopPositionKeys, moveablePositionKeys)
+    }
+    
+    
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
