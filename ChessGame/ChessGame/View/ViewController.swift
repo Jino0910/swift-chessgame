@@ -11,6 +11,22 @@ class ViewController: UIViewController {
     
     let manager = ChessManager.shared
     
+    let whiteScoreLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .black
+        return label
+    }()
+    
+    let blackScoreLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .black
+        return label
+    }()
+    
     let boardView: ChessBoardView = {
         let boardView = ChessBoardView()
         boardView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,17 +42,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        subviewChessView()
+        addSubViews()
         
         newGame()
         boardView.delegate = self
-        boardView.initialize(positionkeys: manager.chessBoard.positions.chessmenPositions,
-                             position: manager.chessBoard.positions)
-        
     }
     
-    func subviewChessView() {
+    func addSubViews() {
         view.addSubview(boardView)
+        view.addSubview(whiteScoreLabel)
+        view.addSubview(blackScoreLabel)
+        
         NSLayoutConstraint.activate([
             boardView.widthAnchor.constraint(equalTo: view.widthAnchor,
                                              constant: -20),
@@ -45,11 +61,34 @@ class ViewController: UIViewController {
             boardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             boardView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            whiteScoreLabel.leadingAnchor.constraint(equalTo: boardView.leadingAnchor),
+            whiteScoreLabel.bottomAnchor.constraint(equalTo: boardView.topAnchor,
+                                               constant: -20),
+        ])
+        
+        NSLayoutConstraint.activate([
+            blackScoreLabel.trailingAnchor.constraint(equalTo: boardView.trailingAnchor),
+            blackScoreLabel.bottomAnchor.constraint(equalTo: boardView.topAnchor,
+                                               constant: -20),
+        ])
+        
     }
     
     
     func newGame() {
         manager.newGame()
+        boardView.initialize(positionkeys: manager.chessBoard.positions.chessmenPositions,
+                             position: manager.chessBoard.positions)
+        self.updateScore()
+        
+    }
+    
+    func updateScore() {
+        let scores = manager.chessBoard.gameScore()
+        whiteScoreLabel.text = "White \(scores.0)"
+        blackScoreLabel.text = "\(scores.1) Black"
     }
 }
 
@@ -71,6 +110,7 @@ extension ViewController: ChessBoardViewDelegate {
                 boardView.moveChessmenIcon(selectedPositionKey: selectedPositionKey,
                                            movePositionKey: movePositionKey)
                 boardView.cleanupAllSquareViewBoarderColor()
+                updateScore()
             case let .move(selectedPositionKey, movePositionKey):
                 boardView.moveChessmenIcon(selectedPositionKey: selectedPositionKey,
                                            movePositionKey: movePositionKey)

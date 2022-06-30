@@ -46,28 +46,41 @@ class ChessBoard {
 
 extension ChessBoard {
     
+    func gameScore() -> (Int, Int) {
+        let whiteScore =
+        self.positions.filter{ $0.value.color == .white }
+            .map{ $0.value.kind.score }
+            .reduce(0, +)
+        let blackScore =
+        self.positions.filter{ $0.value.color == .black }
+            .map{ $0.value.kind.score }
+            .reduce(0, +)
+        
+        return (whiteScore, blackScore)
+    }
+    
     func clickedChessmen(key: ChessBoardPositionKey,
                          noSelectedHandler:((NoSelectedChessmen)->()),
                          hasSelectedHandler:((HasSelectedChessmen)->())) {
-        if let selectedPositionKey = selectedPositionKey {
-            hasSelectedHandler(hasSelectedChessmenType(key: key,
+        if let selectedPositionKey = self.selectedPositionKey {
+            hasSelectedHandler(hasSelectedChessmenType(movePositionKey: key,
                                                       selectedPositionKey: selectedPositionKey))
         } else {
             noSelectedHandler(noSelectedChessmenType(key: key))
         }
     }
     
-    private func hasSelectedChessmenType(key: ChessBoardPositionKey,
+    private func hasSelectedChessmenType(movePositionKey: ChessBoardPositionKey,
                                          selectedPositionKey: ChessBoardPositionKey) -> HasSelectedChessmen {
-        guard selectedPositionKey != key else {
+        guard selectedPositionKey != movePositionKey else {
             self.selectedPositionKey = nil
             return .same
         }
         
         if let chessmen = positions[selectedPositionKey],
            let type = moveablePosition(selectedPositionKey: selectedPositionKey,
-                                       movePositionKey: key,
-                                       chessmen: chessmen) {
+                                       movePositionKey: movePositionKey,
+                                       selectedChessmen: chessmen) {
             return type
         } else {
             viberate()
@@ -91,8 +104,8 @@ extension ChessBoard {
     
     private func moveablePosition(selectedPositionKey: ChessBoardPositionKey,
                                   movePositionKey: ChessBoardPositionKey,
-                                  chessmen: Chessmen) -> HasSelectedChessmen? {
-        let pathPositionKeys = chessmen.moveablePosition(selectedPositionKey).filter{ $0.contains(movePositionKey) }.flatMap{ $0 }
+                                  selectedChessmen: Chessmen) -> HasSelectedChessmen? {
+        let pathPositionKeys = selectedChessmen.moveablePosition(selectedPositionKey).filter{ $0.contains(movePositionKey) }.flatMap{ $0 }
         var type: HasSelectedChessmen?
         
         if let lastIndex = pathPositionKeys.firstIndex(of: movePositionKey) {
@@ -107,7 +120,7 @@ extension ChessBoard {
                         } else {
                             moveChessmen(selectedPositionKey: selectedPositionKey,
                                          movePositionKey: movePositionKey,
-                                         chessmen: chessmen)
+                                         chessmen: selectedChessmen)
                             turnOver()
                             type = .enemy(selectedPositionKey: selectedPositionKey,
                                           movePositionKey: movePositionKey)
@@ -115,7 +128,7 @@ extension ChessBoard {
                     } else {
                         moveChessmen(selectedPositionKey: selectedPositionKey,
                                      movePositionKey: movePositionKey,
-                                     chessmen: chessmen)
+                                     chessmen: selectedChessmen)
                         turnOver()
                         type = .move(selectedPositionKey: selectedPositionKey,
                                      movePositionKey: movePositionKey)
@@ -130,19 +143,6 @@ extension ChessBoard {
             }
         }
         return type
-    }
-    
-    private func turnOver() {
-        turn = (turn == .white) ? .black : .white
-        self.selectedPositionKey = nil
-    }
-    
-    private func moveChessmen(selectedPositionKey: ChessBoardPositionKey,
-                              movePositionKey: ChessBoardPositionKey,
-                              chessmen: Chessmen) {
-        positions[selectedPositionKey] = nil
-        positions[movePositionKey] = chessmen
-        print(positions.diplayPositionOnConsole)
     }
 }
 
@@ -169,6 +169,19 @@ extension ChessBoard {
     
     private func viberate() {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    }
+    
+    private func turnOver() {
+        turn = (turn == .white) ? .black : .white
+        self.selectedPositionKey = nil
+    }
+    
+    private func moveChessmen(selectedPositionKey: ChessBoardPositionKey,
+                              movePositionKey: ChessBoardPositionKey,
+                              chessmen: Chessmen) {
+        positions[selectedPositionKey] = nil
+        positions[movePositionKey] = chessmen
+        print(positions.diplayPositionOnConsole + "\n")
     }
 }
 
