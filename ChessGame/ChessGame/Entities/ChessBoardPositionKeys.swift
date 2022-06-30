@@ -1,13 +1,14 @@
 //
-//  ChessBoardPositionKeys.swift
+//  ChessBoardPositionKey.swift
 //  ChessGame
 //
 //  Created by jinho on 2022/06/25.
 //
 
 import Foundation
+import UIKit
 
-enum ChessBoardPositionKeys: Int, Hashable {
+enum ChessBoardPositionKey: Int, Hashable {
     
     case a1 = 11
     case a2 = 12
@@ -82,14 +83,14 @@ enum ChessBoardPositionKeys: Int, Hashable {
     case h8 = 88
     
     static func makeKeys(rank: Int,
-                         file: Int) -> ChessBoardPositionKeys? {
-        ChessBoardPositionKeys(rawValue: rank*10 + file)
+                         file: Int) -> ChessBoardPositionKey? {
+        ChessBoardPositionKey(rawValue: rank*10 + file)
     }
 }
 
-typealias DirectionType = ChessBoardPositionKeys.DirectionType
+typealias DirectionType = ChessBoardPositionKey.DirectionType
 
-extension ChessBoardPositionKeys {
+extension ChessBoardPositionKey {
     enum DirectionType {
         case up
         case leftUp
@@ -102,7 +103,7 @@ extension ChessBoardPositionKeys {
     }
     
     func movedPositionKeys(color: ChessColor,
-                           direction: DirectionType) -> ChessBoardPositionKeys? {
+                           direction: DirectionType) -> ChessBoardPositionKey? {
         
         var rank = self.rawValue.rank
         var file = self.rawValue.file
@@ -130,8 +131,21 @@ extension ChessBoardPositionKeys {
             rank.right()
         }
         
-        return ChessBoardPositionKeys.makeKeys(rank: rank,
+        return ChessBoardPositionKey.makeKeys(rank: rank,
                                                file: file)
+    }
+    
+    var diplayColor: UIColor {
+        var value = self.rawValue
+        switch value {
+        case 21...28,
+            41...48,
+            61...68,
+            81...88:
+            value += 1
+        default: break
+        }
+        return value % 2 == 0 ? .systemGray6 : .systemGray5
     }
 }
 
@@ -144,7 +158,6 @@ extension Int {
     var file: Int {
         self % 10
     }
-    
     mutating func up(_ color: ChessColor){
         switch color {
         case .black:

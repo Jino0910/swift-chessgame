@@ -19,11 +19,13 @@ class Chessmen {
     let kind: Kind
     let color: ChessColor
     
-    // To-do 체스말 방향
-    
     init(kind: Kind,
          color: ChessColor) {
         self.kind = kind
         self.color = color
+    }
+    
+    var displayIcon: String {
+        self.kind.displayIcon(color)
     }
 }

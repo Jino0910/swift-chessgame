@@ -51,7 +51,7 @@ class ChessGameTests: XCTestCase {
         let position = 58
         
         // then
-        let whiteQueenPosion = ChessBoardPositionKeys.e8.rawValue
+        let whiteQueenPosion = ChessBoardPositionKey.e8.rawValue
         
         XCTAssertEqual(whiteQueenPosion, position)
     }
@@ -100,7 +100,7 @@ class ChessGameTests: XCTestCase {
     func testPawnMoveablePosition() throws {
 
         // given
-        let expectPawnPositionKeys: [[ChessBoardPositionKeys]] = [[.a6]]
+        let expectPawnPositionKeys: [[ChessBoardPositionKey]] = [[.a6]]
 
         // then
         let moveablePositionKeys = Chessmen(kind: .pawn,
@@ -112,7 +112,7 @@ class ChessGameTests: XCTestCase {
     func testBishopMoveablePosition() throws {
 
         // given
-        let expectBishopPositionKeys: [[ChessBoardPositionKeys]] = [[.b7, .a6],
+        let expectBishopPositionKeys: [[ChessBoardPositionKey]] = [[.b7, .a6],
                                                                     [.d7, .e6, .f5, .g4, .h3]]
 
         // then

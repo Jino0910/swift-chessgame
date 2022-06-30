@@ -9,6 +9,14 @@ import Foundation
 
 class ChessManager {
     
+    static let shared = ChessManager()
+    
+    var chessBoard = ChessBoard()
+    
+    func newGame() {
+        chessBoard.initializeBoard()
+    }
+    
     // 시작
     
     /*
