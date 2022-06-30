@@ -26,6 +26,7 @@ extension Chessmen {
             
             // 점프하는 체스말의 경로를 삭제함
             if !allPath && kind == .knight{
+                print(newPositionKeys)
                 removeJumpPathFromknight(newPositionKeys: &newPositionKeys)
             }
             

@@ -101,7 +101,7 @@ extension ChessmenKind {
             return [[.up, .leftUp], [.up, .rightUp],
                     [.left, .leftUp], [.left, .leftDown],
                     [.down, .leftDown], [.down, .rightDown],
-                    [.right, .rightUp], [.left, .rightDown]]
+                    [.right, .rightUp], [.right, .rightDown]]
         case .bishop:
             return [[.leftUp], [.leftDown], [.rightUp], [.rightDown]]
         case .luke:
